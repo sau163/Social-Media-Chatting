@@ -4,7 +4,9 @@ import fs from "fs";
 
 
 const emitEvent =  (req, event ,users,data)=>{
-    console.log(event);
+  const io = req.app.get("io");
+  const usersSocket = getSockets(users);
+  io.to(usersSocket).emit(event, data);
 }
 
 const deleteFilesFromCloud = async (public_ids)=>{

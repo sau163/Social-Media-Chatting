@@ -1,6 +1,6 @@
 import asyncHandler from "../middlewares/asyncHandler.js";
 import AppError from "../utils/AppError.js";
- import { ALERT,NEW_ATTACHMENT,NEW_MESSAGE_ALERT,REFETCH_CHATS } from "../contants/events.js";
+ import { ALERT,NEW_MESSAGE,NEW_MESSAGE_ALERT,REFETCH_CHATS } from "../contants/events.js";
 import Chat from "../models/chat.js";
 import { getOtherMember } from "../lib/helpher.js";
 import Message from "../models/message.js";
@@ -271,7 +271,7 @@ export const sendAttachment = asyncHandler(async (req, res, next) => {
         }
     };
     const message= await Message.create(messageForDB);
-    emitEvent(req,NEW_ATTACHMENT,chat.members,{
+    emitEvent(req,NEW_MESSAGE,chat.members,{
         message:messagesForRealTime,
         chatId
     })

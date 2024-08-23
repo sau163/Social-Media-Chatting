@@ -234,14 +234,23 @@ function Chat() {
   // console.log("data", datas);
 
   useEffect(() => {
-    socket.on(NEW_MESSAGE, (data) => {
-      const newMessage = data.message;
-      if (!messages.some((msg) => msg._id === newMessage._id)) {
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
-      }
-    });
+    
+      socket.on(NEW_MESSAGE, (data) => {
+        const newMessage = data.message;
+         //if(data.chatId!==chatId) return;
+         if (!messages.some((msg) => msg._id === newMessage._id)) {
+          
+            setMessages((prevMessages) => [...prevMessages, newMessage]);
+          
+          
+         }
+      });
+    return () => {
+      socket.off(NEW_MESSAGE);
+    };
   }, [messages, socket]);
-
+ 
+  
   
 
   const scrollToBottom = () => {
@@ -515,3 +524,4 @@ export default React.memo(Chat);
 // }
 
 // export default React.memo(Chat);
+

@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./server
+    ports:
+      - "3002:3002"
+    environment:
+      - MONGO_URL =mongodb+srv://saurabhraj0509:odaEcoa8YTyIbmW6@sauu.2mnxjw8.mongodb.net/darkchat?retryWrites=true&w=majority&appName=sauu
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./client/darkchart
+    ports:
+      - "5173:5173"
+    networks:
+      - app-network
+    environment:
+      - REACT_APP_API_URL=http://backend:3002
+
+networks:
+  app-network:
+
+
+
